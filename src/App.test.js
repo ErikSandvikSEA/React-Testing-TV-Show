@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, waitFor, getByTestId } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from './App'
 import { fetchShow as mockFetchShow } from './api/fetchShow'
@@ -116,8 +116,7 @@ test('renders App without errors', () => {
 //async/await
 test('renders data after API is called', async () => {
      mockFetchShow.mockResolvedValueOnce(episodesData)
-
-     const { getByText, queryAllByTestId, getByTestId } = render(<App />)
+     const { getByText, queryAllByTestId } = render(<App />)
 
      expect(queryAllByTestId(/episodes/i)).toHaveLength(0)
 
@@ -125,6 +124,5 @@ test('renders data after API is called', async () => {
           userEvent.click(getByText(/select a season/i))
           userEvent.click(getByText(/season 1/i))
           expect(queryAllByTestId(/episodes/i)).toHaveLength(2)
-     }
-     )
+     })
 })
